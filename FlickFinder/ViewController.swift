@@ -138,12 +138,12 @@ class ViewController: UIViewController {
             
             // GUARD: Did we get a successfull 2xx response?
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where
-                statusCode >= 200 && statusCode <=299 else {
+                statusCode >= 200 && statusCode <= 299 else {
                 displayError("Your request returned a status code other than 2xx!")
                 return
             }
             
-            //GUARD: Was there any data returned?
+            // GUARD: Was there any data returned?
             guard let data = data else {
                 displayError("No data was returned by the request!")
                 return
@@ -159,14 +159,14 @@ class ViewController: UIViewController {
             }
             
             //GUARD: Did Flickr return an error?
-            guard let stat = parsedResult [Constants.FlickrResponseKeys.Photos] as?
+            guard let stat = parsedResult [Constants.FlickrResponseKeys.Status] as?
                 String where stat == Constants.FlickrResponseValues.OKStatus else {
                 displayError("Flickr API returned an error. See error code and message in \(parsedResult)")
                 return
             }
             
-            //GUARD: Is the "photo" key in our result?
-            guard let photoDictionary = parsedResult [Constants.FlickrResponseKeys.Photo] as? [String: AnyObject] else {
+            //GUARD: Is the "photos" key in our result?
+            guard let photoDictionary = parsedResult [Constants.FlickrResponseKeys.Photos] as? [String: AnyObject] else {
                 displayError("Cannot find key '\(Constants.FlickrResponseKeys.Photos) in \(parsedResult)'")
                 return
             }
@@ -184,7 +184,6 @@ class ViewController: UIViewController {
                 let randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
                 let photoDictionary  = photosArray[randomPhotoIndex] as [String: AnyObject]
                 let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
-            }
             
             //GUARD: Does our photo have a key for 'url_m'?
             guard let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String else {
@@ -203,6 +202,7 @@ class ViewController: UIViewController {
                 displayError("Image does not exist at \(imageURL)")
             }
           }
+        }
         task.resume()
     }
     
