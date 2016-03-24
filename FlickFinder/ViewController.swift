@@ -62,7 +62,7 @@ class ViewController: UIViewController {
                 Constants.FlickrParameterKeys.Text: phraseTextField.text,
                 Constants.FlickrParameterKeys.GalleryID: Constants.FlickrParameterValues.GalleryID,
                 Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL,
-                Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.MediumURL,
+                Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat,
                 Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback
             ]
             displayImageFromFlickrBySearch(methodParameters)
