@@ -4,7 +4,6 @@
 //
 //  Created by Jarrod Parkes on 11/5/15.
 //  Copyright © 2015 Udacity. All rights reserved.
-//  Example01
 
 import UIKit
 
