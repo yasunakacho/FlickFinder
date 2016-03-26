@@ -4,7 +4,7 @@
 //
 //  Created by Jarrod Parkes on 11/5/15.
 //  Copyright © 2015 Udacity. All rights reserved.
-//
+//  Example01
 
 import UIKit
 
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
                 Constants.FlickrParameterKeys.BoundingBox: bboxString(),
                 Constants.FlickrParameterKeys.GalleryID: Constants.FlickrParameterValues.GalleryID,
                 Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL,
-                Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.MediumURL,
+                Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat,
                 Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback
             ]
             displayImageFromFlickrBySearch(methodParameters)
@@ -170,6 +170,21 @@ class ViewController: UIViewController {
                 displayError("Cannot find key '\(Constants.FlickrResponseKeys.Photos) in \(parsedResult)'")
                 return
             }
+            
+            //CHECK if we have a page number or not
+            
+            if withPageNumber == nil {
+            
+                guard let totalPages = photoDictionary[Constants.FlickrResponseKeys.Pages] as? Int else {
+                    displayError("Cannot find key '\(Constants.FlickrResponseKeys.Pages)' in \(photoDictionary)")
+                    return
+                }
+                
+                let pageLimit = min(totalPages, 40)
+                let randomPage = Int(arc4random_uniform(UInt32(pageLimit))) + 1
+                self.displayImageFromFlickrBySearch(methodParameters, withPageNumber: randomPage)
+            }
+            
             
             //GUARD: Is the "photo" key in photosDictionary?
             guard let photosArray = photoDictionary[Constants.FlickrResponseKeys.Photo] as? [[String: AnyObject]] else {
@@ -270,9 +285,6 @@ extension ViewController: UITextFieldDelegate {
         }
     }
     
-    //UNDERSTAND THE FOLLOWING STATEMENTS
-    //UNDERSTAND THE FOLLOWINGS
-    
     @IBAction func userDidTapView(sender: AnyObject) {
         resignIfFirstResponder(phraseTextField)
         resignIfFirstResponder(latitudeTextField)
@@ -295,7 +307,6 @@ extension ViewController: UITextFieldDelegate {
 }
 
 // MARK: - ViewController (Configure UI)
-// UNDERSTAND PRIVATE FUNCTION AND EXTENTION??
 
 extension ViewController {
     
