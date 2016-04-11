@@ -6,4 +6,4 @@ Development environment:
 - Language: Swift
 
 # Summary
-"Flick Finder" uses the Flickr API to download pictures and it require you to chain network requests together to achieve the best results.
+"Flick Finder" uses the Flickr API to download pictures and it requires to use chain network requests to achieve the best results.
